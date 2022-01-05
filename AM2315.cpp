@@ -156,7 +156,10 @@ int AM2315::_readSensor()
 
   // HANDLE PENDING IRQ
   yield();
-  noInterrupts();
+  if (_disableIRQ)
+  {
+    noInterrupts();
+  }
 
   // WAKE UP the sensor
   _wire->beginTransmission(AM2315_ADDRESS);
