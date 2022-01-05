@@ -2,8 +2,8 @@
 //    FILE: unit_test_001.cpp
 //  AUTHOR: Rob Tillaart
 //    DATE: 2022-01-05
-// PURPOSE: unit tests for the DHT12 library
-//          https://github.com/RobTillaart/DHT12
+// PURPOSE: unit tests for the AM2315 library
+//          https://github.com/RobTillaart/AM2315
 //          https://github.com/Arduino-CI/arduino_ci/blob/master/REFERENCE.md
 //
 
@@ -58,7 +58,7 @@ unittest(test_constructor)
   assertEqualFloat(0, sensor.getHumOffset(), 0.001);
 
   sensor.begin();
-  assertEqual(AM2315_ERROR_CONNECT, DHT.read());
+  assertEqual(AM2315_ERROR_CONNECT, AM2315.read());
 
   assertEqualFloat(0, sensor.getTemperature(), 0.001);
   assertEqualFloat(0, sensor.getHumidity(), 0.001);
