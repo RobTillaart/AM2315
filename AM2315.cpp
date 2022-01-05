@@ -214,7 +214,7 @@ uint16_t AM2315::_crc16(uint8_t *ptr, uint8_t len)
     {
       if(crc & 0x01)
       {
-        crc >> =1;
+        crc >>= 1;
         crc ^= 0xA001;
       }
       else
