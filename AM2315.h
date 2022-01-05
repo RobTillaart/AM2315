@@ -100,6 +100,7 @@ private:
   uint8_t  _bits[5];  // buffer to receive data
   int      _read();
   int      _readSensor();
+  uint16_t _crc16(uint8_t *ptr, uint8_t len);
 
   TwoWire* _wire;
 };
