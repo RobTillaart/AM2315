@@ -31,7 +31,7 @@ Calling these latter again will return the same values until a new **read()** is
 - **AM2315(TwoWire \*wire)** constructor, using a specific Wire (I2C bus).
 - **bool begin(uint8_t dataPin, uint8_t clockPin)** begin for ESP32 et al, to set I2C bus pins
 - **bool begin()** initializer for non ESP32. Returns true if connected.
-- **bool isConnected()** returns true if the address of the AM2315 can be seen on the I2C bus. (since 0.3.2)
+- **bool isConnected()** returns true if the address of the AM2315 can be seen on the I2C bus.
 
 
 ### Core
@@ -39,7 +39,7 @@ Calling these latter again will return the same values until a new **read()** is
 - **int8_t read()** read the sensor and store the values internally. It returns the status of the read which should be 0.
 - **float getHumidity()** returns last Humidity read, or -999 in case of error.
 - **float getTemperature()** returns last Temperature read, or -999 in case of error.
-- **uint32_t lastRead()** returns the timestamp in milliseconds since startup of the last successful read. (added in 0.3.1)
+- **uint32_t lastRead()** returns the timestamp in milliseconds since startup of the last successful read.
 
 
 ### Offset
@@ -58,6 +58,6 @@ See examples
 ## Future
 
 - get hardware and test
-- 
+- documentation
 
 
