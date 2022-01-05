@@ -45,6 +45,12 @@ unittest(test_constants)
   assertEqual(-10, AM2315_ERROR_CHECKSUM);
   assertEqual(-11, AM2315_ERROR_CONNECT);
   assertEqual(-12, AM2315_MISSING_BYTES);
+  assertEqual(-50, AM2315_WAITING_FOR_READ);
+
+  assertEqual(-100, AM2315_HUMIDITY_OUT_OF_RANGE);
+  assertEqual(-101, AM2315_TEMPERATURE_OUT_OF_RANGE);
+  assertEqual(-999, AM2315_INVALID_VALUE);
+
 }
 
 
@@ -58,7 +64,7 @@ unittest(test_constructor)
   assertEqualFloat(0, sensor.getHumOffset(), 0.001);
 
   sensor.begin();
-  assertEqual(AM2315_ERROR_CONNECT, AM2315.read());
+  assertEqual(AM2315_ERROR_CONNECT, sensor.read());
 
   assertEqualFloat(0, sensor.getTemperature(), 0.001);
   assertEqualFloat(0, sensor.getHumidity(), 0.001);

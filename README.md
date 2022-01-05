@@ -59,5 +59,7 @@ See examples
 
 - get hardware and test
 - documentation
+- clean up code
+- add examples
 
 
