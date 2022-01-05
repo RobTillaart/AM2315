@@ -60,8 +60,8 @@ public:
   uint32_t lastRead()                    { return _lastRead; };
 
   // preferred interface
-  float    getHumidity()                 { return _humidity + _humOffset; };
-  float    getTemperature()              { return _temperature + _tempOffset; };
+  float    getHumidity();
+  float    getTemperature();
 
   // adding offsets works well in normal range
   // might introduce under- or overflow at the ends of the sensor range
@@ -87,7 +87,6 @@ public:
 
 
 private:
-  uint8_t  _dataPin       = 0;
   float    _humOffset     = 0.0;
   float    _tempOffset    = 0.0;
   float    _humidity      = 0.0;

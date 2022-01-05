@@ -73,11 +73,17 @@ See examples
 
 ## Future
 
+- found that the interface is like AM232X library.need to test first.
 - get hardware and test test test ...
 - update unit test
 - documentation
 - clean up code
 - add examples
+- add AM2320 derived class ?
 - optimize
 
+**wont**
+- add calls for meta information (no desxcription yet)
+  - 0x07 status register
+  - 0x08-0x0B user register HIGH LOW HIGH2 LOW2
 
