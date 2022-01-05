@@ -14,7 +14,7 @@
 
 // these defines are not for user to adjust
 // READ_DELAY for blocking read
-#define AM2315_READ_DELAY           2000
+#define AM2315_READ_DELAY                     2000
 
 #define AM2315_ADDRESS                        0x5C
 
@@ -79,23 +79,15 @@ int AM2315::read()
 
 float AM2315::getHumidity()
 {
-  if (_humOffset != 0.0)
-  {
-    _humidity += _humOffset;
-    if (_humidity < 0) _humidity = 0;
-    if (_humidity > 100) _humidity = 100;
-  }
-  return _humidity;
+  if (_humOffset == 0.0) return _humidity;
+  return _humidity + _humOffset;
 }
 
 
 float AM2315::getTemperature()
 {
-  if (_tempOffset != 0.0)
-  {
-    _temperature += _tempOffset;
-  }
-  return _temperature;
+  if (_tempOffset == 0.0) return _temperature;
+  return _temperature + _tempOffset;
 }
 
 
