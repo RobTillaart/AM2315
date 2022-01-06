@@ -7,13 +7,15 @@
 //     URL: https://github.com/RobTillaart/AM2315
 
 
-// AM2315 PIN layout from left to right
-// =================================
-// FRONT : DESCRIPTION     COLOR
-// pin 1 : VDD             RED
-// pin 2 : SDA             YELLOW
-// pin 3 : GND             BLACK
-// pin 4 : SCL             GREY
+//  AM232X PIN layout             AM2315 color
+//  ============================================
+//   bottom view  DESCRIPTION     COLOR
+//       +---+
+//       |o  |       VDD          RED
+//       |o  |       SDA          YELLOW
+//       |o  |       GND          BLACK
+//       |o  |       SCL          GREY
+//       +---+
 
 
 #include "Arduino.h"

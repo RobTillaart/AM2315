@@ -14,6 +14,7 @@ AM2315 sensor(&Wire);
 void setup()
 {
   sensor.begin();
+  sensor.setDisableIRQ(false);
 
   Serial.begin(115200);
   Serial.println(__FILE__);
@@ -24,6 +25,7 @@ void setup()
   delay(2000);
 
   Serial.println("Type,\tStatus,\tHumidity (%),\tTemperature (C)");
+  delay(100);
 }
 
 
