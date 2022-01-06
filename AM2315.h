@@ -94,7 +94,7 @@ private:
   float    _humidity      = 0.0;
   float    _temperature   = 0.0;
   uint32_t _lastRead      = 0;
-  bool     _disableIRQ    = true;
+  bool     _disableIRQ    = false;
   bool     _waitForRead   = false;
   bool     _suppressError = false;
   uint16_t _readDelay     = 0;
