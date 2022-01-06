@@ -14,7 +14,9 @@ AM2315 sensor(&Wire);
 void setup()
 {
   sensor.begin();
-  sensor.setDisableIRQ(false);
+  // adjust your offsets
+  sensor.setTempOffset(-0.8);
+  sensor.setHumOffset(1.2);
 
   Serial.begin(115200);
   Serial.println(__FILE__);

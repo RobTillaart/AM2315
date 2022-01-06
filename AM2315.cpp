@@ -79,15 +79,17 @@ int AM2315::read()
 
 float AM2315::getHumidity()
 {
-  if (_humOffset == 0.0) return _humidity;
-  return _humidity + _humOffset;
+  float _hum = _humidity;
+  if (_humOffset != 0.0) _hum += _humOffset;
+  return _hum;
 }
 
 
 float AM2315::getTemperature()
 {
-  if (_tempOffset == 0.0) return _temperature;
-  return _temperature + _tempOffset;
+  float _tem = _temperature;
+  if (_tempOffset != 0.0) _tem += _tempOffset;
+  return _tem;
 }
 
 
@@ -99,7 +101,6 @@ int AM2315::_read()
 {
   // READ VALUES
   int rv = _readSensor();
-  interrupts();
 
   _lastRead = millis();
 
@@ -160,10 +161,6 @@ int AM2315::_readSensor()
 
   // HANDLE PENDING IRQ
   yield();
-  if (_disableIRQ)
-  {
-    noInterrupts();
-  }
 
   // WAKE UP the sensor
   _wire->beginTransmission(AM2315_ADDRESS);

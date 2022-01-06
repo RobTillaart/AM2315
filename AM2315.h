@@ -7,7 +7,7 @@
 //     URL: https://github.com/RobTillaart/AM2315
 
 
-//  AM232X PIN layout             AM2315 color
+//  AM232X PIN layout             AM2315 COLOR
 //  ============================================
 //   bottom view  DESCRIPTION     COLOR
 //       +---+
@@ -72,9 +72,6 @@ public:
   float    getHumOffset()                { return _humOffset; };
   float    getTempOffset()               { return _tempOffset; };
 
-  bool     getDisableIRQ()               { return _disableIRQ; };
-  void     setDisableIRQ(bool b )        { _disableIRQ = b; };
-
   bool     getWaitForReading()           { return _waitForRead; };
   void     setWaitForReading(bool b )    { _waitForRead = b; };
 
@@ -94,7 +91,6 @@ private:
   float    _humidity      = 0.0;
   float    _temperature   = 0.0;
   uint32_t _lastRead      = 0;
-  bool     _disableIRQ    = false;
   bool     _waitForRead   = false;
   bool     _suppressError = false;
   uint16_t _readDelay     = 0;

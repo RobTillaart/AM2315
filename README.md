@@ -54,8 +54,6 @@ Calling these latter again will return the same values until a new **read()** is
 
 Functions to adjust the communication with the sensor.
 
-- **void setDisableIRQ(bool b )** allows or suppresses interrupts during core read function to keep timing as correct as possible. **Note AVR + MKR1010**
-- **bool getDisableIRQ()** returns the above setting. Default **true**.
 - **void setWaitForReading(bool b )** flag to enforce a blocking wait. 
 - **bool getWaitForReading()** returns the above setting.
 - **void setReadDelay(uint16_t rd = 0)** To tune the time it waits before actual read. Default = 2000 ms.
