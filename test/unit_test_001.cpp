@@ -64,7 +64,7 @@ unittest(test_constructor)
   assertEqualFloat(0, sensor.getHumOffset(), 0.001);
 
   sensor.begin();
-  // assertEqual(AM2315_ERROR_CONNECT, sensor.read());
+  assertEqual(AM2315_WAITING_FOR_READ, sensor.read());
 
   assertEqualFloat(0, sensor.getTemperature(), 0.001);
   assertEqualFloat(0, sensor.getHumidity(), 0.001);

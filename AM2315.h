@@ -7,13 +7,15 @@
 //     URL: https://github.com/RobTillaart/AM2315
 
 
-// AM2315 PIN layout from left to right
-// =================================
-// FRONT : DESCRIPTION     COLOR
-// pin 1 : VDD             RED
-// pin 2 : SDA             YELLOW
-// pin 3 : GND             BLACK
-// pin 4 : SCL             GREY
+//  AM232X PIN layout             AM2315 COLOR
+//  ============================================
+//   bottom view  DESCRIPTION     COLOR
+//       +---+
+//       |o  |       VDD          RED
+//       |o  |       SDA          YELLOW
+//       |o  |       GND          BLACK
+//       |o  |       SCL          GREY
+//       +---+
 
 
 #include "Arduino.h"
@@ -60,8 +62,8 @@ public:
   uint32_t lastRead()                    { return _lastRead; };
 
   // preferred interface
-  float    getHumidity()                 { return _humidity + _humOffset; };
-  float    getTemperature()              { return _temperature + _tempOffset; };
+  float    getHumidity();
+  float    getTemperature();
 
   // adding offsets works well in normal range
   // might introduce under- or overflow at the ends of the sensor range
@@ -69,9 +71,6 @@ public:
   void     setTempOffset(float offset)   { _tempOffset = offset; };
   float    getHumOffset()                { return _humOffset; };
   float    getTempOffset()               { return _tempOffset; };
-
-  bool     getDisableIRQ()               { return _disableIRQ; };
-  void     setDisableIRQ(bool b )        { _disableIRQ = b; };
 
   bool     getWaitForReading()           { return _waitForRead; };
   void     setWaitForReading(bool b )    { _waitForRead = b; };
@@ -87,13 +86,11 @@ public:
 
 
 private:
-  uint8_t  _dataPin       = 0;
   float    _humOffset     = 0.0;
   float    _tempOffset    = 0.0;
   float    _humidity      = 0.0;
   float    _temperature   = 0.0;
   uint32_t _lastRead      = 0;
-  bool     _disableIRQ    = true;
   bool     _waitForRead   = false;
   bool     _suppressError = false;
   uint16_t _readDelay     = 0;
@@ -101,6 +98,7 @@ private:
   uint8_t  _bits[5];  // buffer to receive data
   int      _read();
   int      _readSensor();
+  uint16_t _crc16(uint8_t *ptr, uint8_t len);
 
   TwoWire* _wire;
 };

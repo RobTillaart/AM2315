@@ -14,6 +14,9 @@ AM2315 sensor(&Wire);
 void setup()
 {
   sensor.begin();
+  // adjust your offsets
+  sensor.setTempOffset(-0.8);
+  sensor.setHumOffset(1.2);
 
   Serial.begin(115200);
   Serial.println(__FILE__);
@@ -24,6 +27,7 @@ void setup()
   delay(2000);
 
   Serial.println("Type,\tStatus,\tHumidity (%),\tTemperature (C)");
+  delay(100);
 }
 
 

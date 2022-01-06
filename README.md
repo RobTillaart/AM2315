@@ -54,8 +54,6 @@ Calling these latter again will return the same values until a new **read()** is
 
 Functions to adjust the communication with the sensor.
 
-- **void setDisableIRQ(bool b )** allows or suppresses interrupts during core read function to keep timing as correct as possible. **Note AVR + MKR1010**
-- **bool getDisableIRQ()** returns the above setting. Default **true**.
 - **void setWaitForReading(bool b )** flag to enforce a blocking wait. 
 - **bool getWaitForReading()** returns the above setting.
 - **void setReadDelay(uint16_t rd = 0)** To tune the time it waits before actual read. Default = 2000 ms.
@@ -73,11 +71,17 @@ See examples
 
 ## Future
 
+- found that the interface is like AM232X library.need to test first.
 - get hardware and test test test ...
 - update unit test
 - documentation
 - clean up code
 - add examples
+- add AM2320 derived class ?
 - optimize
 
+**wont**
+- add calls for meta information (no desxcription yet)
+  - 0x07 status register
+  - 0x08-0x0B user register HIGH LOW HIGH2 LOW2
 

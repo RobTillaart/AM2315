@@ -14,7 +14,7 @@
 
 // these defines are not for user to adjust
 // READ_DELAY for blocking read
-#define AM2315_READ_DELAY           2000
+#define AM2315_READ_DELAY                     2000
 
 #define AM2315_ADDRESS                        0x5C
 
@@ -77,6 +77,22 @@ int AM2315::read()
 }
 
 
+float AM2315::getHumidity()
+{
+  float _hum = _humidity;
+  if (_humOffset != 0.0) _hum += _humOffset;
+  return _hum;
+}
+
+
+float AM2315::getTemperature()
+{
+  float _tem = _temperature;
+  if (_tempOffset != 0.0) _tem += _tempOffset;
+  return _tem;
+}
+
+
 ///////////////////////////////////////////////////////////
 //
 //  PRIVATE
@@ -85,7 +101,6 @@ int AM2315::_read()
 {
   // READ VALUES
   int rv = _readSensor();
-  interrupts();
 
   _lastRead = millis();
 
@@ -114,29 +129,17 @@ int AM2315::_read()
     }
   }
 
-
   // TEST OUT OF RANGE
 #ifdef AM2315_VALUE_OUT_OF_RANGE
   if (_humidity > 100)
   {
     return AM2315_HUMIDITY_OUT_OF_RANGE;
   }
-  if ((_temperature < -40) || (_temperature > 80))
+  if ((_temperature < -40) || (_temperature > 125))
   {
     return AM2315_TEMPERATURE_OUT_OF_RANGE;
   }
 #endif
-
-  if (_humOffset != 0.0)
-  {
-    _humidity += _humOffset;
-    if (_humidity < 0) _humidity = 0;
-    if (_humidity > 100) _humidity = 100;
-  }
-  if (_tempOffset != 0.0)
-  {
-    _temperature += _tempOffset;
-  }
 
   return AM2315_OK;
 }
@@ -148,7 +151,9 @@ int AM2315::_read()
 //
 
 // return values:
-
+//    AM2315_OK
+//    AM2315_ERROR_CONNECT
+//    AM2315_MISSING_BYTES
 int AM2315::_readSensor()
 {
   // EMPTY BUFFER
@@ -156,7 +161,6 @@ int AM2315::_readSensor()
 
   // HANDLE PENDING IRQ
   yield();
-  noInterrupts();
 
   // WAKE UP the sensor
   _wire->beginTransmission(AM2315_ADDRESS);
@@ -188,10 +192,35 @@ int AM2315::_readSensor()
   _bits[2] = buffer[4];
   _bits[3] = buffer[5];
 
+  // TODO ? 
   // TEST CHECKSUM HERE
   // return AM2315_ERROR_CHECKSUM;
+  // uint16_t crc = _crc16(buffer, bytes - 2);
 
   return AM2315_OK;
+}
+
+
+uint16_t AM2315::_crc16(uint8_t *ptr, uint8_t len)
+{
+  uint16_t crc = 0xFFFF;
+  while(len--)
+  {
+    crc ^= *ptr++;
+    for (uint8_t i = 0; i < 8; i++)
+    {
+      if(crc & 0x01)
+      {
+        crc >>= 1;
+        crc ^= 0xA001;
+      }
+      else
+      {
+        crc>>=1;
+      }
+    }
+  }
+  return crc;
 }
 
 
