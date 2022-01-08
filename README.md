@@ -32,6 +32,8 @@ Calling these latter again will return the same values until a new **read()** is
 - **bool begin(uint8_t dataPin, uint8_t clockPin)** begin for ESP32 et al, to set I2C bus pins
 - **bool begin()** initializer for non ESP32. Returns true if connected.
 - **bool isConnected()** returns true if the address of the AM2315 can be seen on the I2C bus.
+As the device can be in sleep modus it will retry for the defined timeout (in micros) with a minimum of 1 try. 
+minimum = 800 us and maximum = 3000 us according to datasheet.
 
 
 ### Core
@@ -62,6 +64,11 @@ set readDelay to 0 will reset to 2000 ms AFTER a call to **read()**.
 - **void setSuppressError(bool b)** suppress error values of -999 => you need to check the return value of read() instead.  
 This is used to keep spikes out of your graphs / logs. 
 - **bool getSuppressError()**  returns the above setting.
+
+
+### Misc
+
+- **bool wakeUp()** function that will try for 3 milliseconds to wake up the sensor.
 
 
 ## Operation

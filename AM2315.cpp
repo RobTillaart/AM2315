@@ -55,11 +55,17 @@ bool AM2315::begin()
 }
 
 
-bool AM2315::isConnected()
+bool AM2315::isConnected(uint16_t timeout)
 {
-  _wire->beginTransmission(AM2315_ADDRESS);
-  int rv = _wire->endTransmission();
-  return rv == 0;
+  uint32_t start = micros();
+  while (micros() - start < timeout)
+  {
+    _wire->beginTransmission(AM232X_ADDRESS);
+    if ( _wire->endTransmission() == 0) return true;
+    yield();
+    delayMicroseconds(100);
+  }
+  return false;
 }
 
 
