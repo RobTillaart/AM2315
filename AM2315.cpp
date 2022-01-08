@@ -60,7 +60,7 @@ bool AM2315::isConnected(uint16_t timeout)
   uint32_t start = micros();
   while (micros() - start < timeout)
   {
-    _wire->beginTransmission(AM232X_ADDRESS);
+    _wire->beginTransmission(AM2315_ADDRESS);
     if ( _wire->endTransmission() == 0) return true;
     yield();
     delayMicroseconds(100);
