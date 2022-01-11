@@ -18,6 +18,8 @@ void setup()
   // sensor.setTempOffset(-0.8);
   // sensor.setHumOffset(1.2);
 
+  // Wire.setClock(100000);
+
   Serial.begin(115200);
   Serial.println(__FILE__);
   Serial.print("AM2315_LIB_VERSION: ");

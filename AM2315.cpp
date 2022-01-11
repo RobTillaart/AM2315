@@ -1,12 +1,13 @@
 //
 //    FILE: AM2315.cpp
 //  AUTHOR: Rob.Tillaart@gmail.com
-// VERSION: 0.1.0
+// VERSION: 0.1.1
 // PURPOSE: AM2315 Temperature and Humidity sensor library for Arduino
 //     URL: https://github.com/RobTillaart/AM2315
 //
 //  HISTORY:
 //  0.1.0  2022-01-05  initial version
+//  0.1.1  2022-01-11  fix handshake.
 
 
 #include "AM2315.h"
@@ -72,7 +73,7 @@ bool AM2315::isConnected(uint16_t timeout)
 int AM2315::read()
 {
   // reset readDelay
-  if (_readDelay == 0) _readDelay = 2000;
+  if (_readDelay == 0) _readDelay = AM2315_READ_DELAY;
   while (millis() - _lastRead < _readDelay)
   {
     if (!_waitForRead) return AM2315_WAITING_FOR_READ;
@@ -160,6 +161,7 @@ int AM2315::_read()
 //    AM2315_OK
 //    AM2315_ERROR_CONNECT
 //    AM2315_MISSING_BYTES
+//    AM2315_ERROR_CHECKSUM;
 int AM2315::_readSensor()
 {
   // EMPTY BUFFER
