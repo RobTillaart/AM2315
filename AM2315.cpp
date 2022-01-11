@@ -182,6 +182,7 @@ int AM2315::_readSensor()
   rv = _wire->endTransmission();
   if (rv < 0) return rv;
 
+  delayMicroseconds(1500);
   // GET DATA
   const int length = 8;
   int bytes = _wire->requestFrom(AM2315_ADDRESS, length);
@@ -198,10 +199,15 @@ int AM2315::_readSensor()
   _bits[2] = buffer[4];
   _bits[3] = buffer[5];
 
-  // TODO ? 
-  // TEST CHECKSUM HERE
-  // return AM2315_ERROR_CHECKSUM;
-  // uint16_t crc = _crc16(buffer, bytes - 2);
+  // TEST CHECKSUM
+  uint16_t crc0 = buffer[7] * 256 + buffer[6];
+  uint16_t crc1 = _crc16(buffer, bytes - 2);
+  // Serial.print("CRC: ");
+  // Serial.print(crc0 - crc1);
+  // Serial.print("\t");
+  // Serial.print(crc1);
+  // Serial.println();
+  if (crc0 != crc1) return AM2315_ERROR_CHECKSUM;
 
   return AM2315_OK;
 }

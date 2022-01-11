@@ -1,5 +1,5 @@
 //
-//    FILE: AM2315_test.ino
+//    FILE: AM2315_performance.ino
 //  AUTHOR: Rob Tillaart
 // PURPOSE: Demo for AM2315 I2C humidity & temperature sensor
 //
@@ -8,7 +8,7 @@
 #include "AM2315.h"
 #include "Wire.h"
 
-AM2315 sensor(&Wire);
+AM2315 sensor;
 
 
 void setup()
@@ -26,7 +26,7 @@ void setup()
 
   delay(2000);
 
-  Serial.println("Type,\tStatus,\tHumidity (%),\tTemperature (C)");
+  Serial.println("Type,\tStatus,\tHumidity (%),\tTemperature (C), \t micros");
   delay(100);
 }
 
@@ -36,8 +36,10 @@ void loop()
   if (millis() - sensor.lastRead() >= 2000)
   {
     // READ DATA
-    Serial.print("AM2315, \t");
+
+    uint32_t start = micros();
     int status = sensor.read();
+    uint32_t stop = micros();
     switch (status)
     {
     case AM2315_OK:
@@ -57,9 +59,13 @@ void loop()
       break;
     }
     // DISPLAY DATA, sensor has only one decimal.
+    Serial.print("AM2315, \t");
     Serial.print(sensor.getHumidity(), 1);
     Serial.print(",\t");
-    Serial.println(sensor.getTemperature(), 1);
+    Serial.print(sensor.getTemperature(), 1);
+    Serial.print(",\t");
+    Serial.print(stop - start);
+    Serial.print("\n");
   }
 }
 
