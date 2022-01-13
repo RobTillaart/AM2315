@@ -10,6 +10,8 @@
 
 Arduino library for I2C AM2315 temperature and humidity sensor.
 
+The AM2315 can also be read with the https://github.com/RobTillaart/AM232X library as it uses the same protocol. The AM232X library allows to read some internal registers.
+
 
 ## Description
 
@@ -94,9 +96,6 @@ Functions to adjust the communication with the sensor.
 
 - **void setWaitForReading(bool b )** flag to enforce a blocking wait. 
 - **bool getWaitForReading()** returns the above setting.
-- **void setReadDelay(uint16_t rd = 0)** To tune the time it waits before actual read. Default = 2000 ms.
-set readDelay to 0 will reset to 2000 ms AFTER a call to **read()**.
-- **uint16_t getReadDelay()** returns the above setting.
 - **void setSuppressError(bool b)** suppress error values of -999 => you need to check the return value of read() instead.  
 This is used to keep spikes out of your graphs / logs. 
 - **bool getSuppressError()**  returns the above setting.
@@ -131,14 +130,9 @@ See examples
 
 - documentation
 - test
-- update unit test ?
+- update unit test
 - add examples
-- remove the **readDelay()** functions and code as sensor cannot handle shorter units.
-- optimize performance
-  - add function to tune the 1500 micros to sample.
-  - document squeeze of 10 write(0);
-
-
+- merge with the AM232X library in a far future.
 
 **wont**
 - add calls for meta information (no description yet)

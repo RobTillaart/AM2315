@@ -77,10 +77,6 @@ public:
   bool     getWaitForReading()           { return _waitForRead; };
   void     setWaitForReading(bool b )    { _waitForRead = b; };
 
-  // set readDelay to 0 will reset to datasheet values
-  uint16_t getReadDelay()                { return _readDelay; };
-  void     setReadDelay(uint16_t rd = 0) { _readDelay = rd; };
-
 
   // suppress error values of -999 => check return value of read() instead
   bool     getSuppressError()            { return _suppressError; };
@@ -96,9 +92,8 @@ private:
   uint32_t _lastRead      = 0;
   bool     _waitForRead   = false;
   bool     _suppressError = false;
-  uint16_t _readDelay     = 0;
 
-  uint8_t  _bits[4];      // buffer to hold raw data
+  uint8_t  _bits[8];    // buffer to hold raw data
   int      _read();
   int      _readSensor();
   uint16_t _crc16(uint8_t *ptr, uint8_t len);
