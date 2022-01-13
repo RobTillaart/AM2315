@@ -2,11 +2,10 @@
 //
 //    FILE: AM2315.h
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.1
 // PURPOSE: AM2315 Temperature and Humidity sensor library for Arduino
+// VERSION: 0.1.2
 //     URL: https://github.com/RobTillaart/AM2315
-
-
+//
 //  AM232X PIN layout             AM2315 COLOR
 //  ============================================
 //   bottom view  DESCRIPTION     COLOR
@@ -16,13 +15,15 @@
 //       |o  |       GND          BLACK
 //       |o  |       SCL          GREY
 //       +---+
+//
+// do not forget pull up resistors between SDA, SCL and VDD.
 
 
 #include "Arduino.h"
 #include "Wire.h"
 
 
-#define AM2315_LIB_VERSION                    (F("0.1.1"))
+#define AM2315_LIB_VERSION                    (F("0.1.2"))
 
 
 #define AM2315_OK                             0
@@ -97,7 +98,7 @@ private:
   bool     _suppressError = false;
   uint16_t _readDelay     = 0;
 
-  uint8_t  _bits[5];  // buffer to receive data
+  uint8_t  _bits[4];      // buffer to hold raw data
   int      _read();
   int      _readSensor();
   uint16_t _crc16(uint8_t *ptr, uint8_t len);

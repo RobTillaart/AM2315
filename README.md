@@ -22,6 +22,41 @@ Thereafter one has to call the **read()** function to do the actual reading,
 and with **getTemperature()** and **getHumidity()** to get the read values.
 Calling these latter again will return the same values until a new **read()** is called.
 
+The I2C address is 0x5C and is hardcoded in the device. 
+If you need multiple AM2315 devices use a I2C multiplexer e.g. https://github.com/RobTillaart/TCA9548
+
+
+### I2C clock speed
+
+The datasheet states the AM2315 should be used on 100 KHz I2C only. 
+When overclocking I got good readings up to 190 KHz in a test with 
+- Arduino UNO
+- very short wires
+- not using pull ups.
+- version 0.1.1 of this library
+
+
+| I2C clock | timing us | Notes                 |
+|:---------:|:---------:|:----------------------|
+|   50 KHz  |    4570   | under-clocking works (e.g. long wires)
+|  100 KHz  |    3276   | specs default, robust
+|  150 KHz  |    2836   |
+|  160 KHz  |    2792   |
+|  170 KHz  |    2750   | 0.5 ms off, interesting
+|  180 KHz  |    2700   | near critical. DO NOT USE.
+|  190 KHz  |    2672   | near critical. DO NOT USE.
+|  200 KHz  |   crash   | sensor needs a power cycle reboot. DO NOT USE.
+
+
+If robustness is mandatory stick to the default of 100 KHz.
+If performance is mandatory do not go beyond 170 KHz.
+
+
+### Wake up
+
+As the sensor goes to sleep after 3 seconds after last read, it needs to be woken up.
+This is hard coded in the **readSensor()** function. 
+
 
 ## Interface
 
@@ -84,7 +119,7 @@ This is used to keep spikes out of your graphs / logs.
 | AM2315_WAITING_FOR_READ           |  -50  |
 | AM2315_HUMIDITY_OUT_OF_RANGE      |  -100 |
 | AM2315_TEMPERATURE_OUT_OF_RANGE   |  -101 |
-| AM2315_INVALID_VALUE              |  -999 |
+| AM2315_INVALID_VALUE              |  -999 | can be suppressed. 
 
 
 ## Operation
@@ -94,17 +129,20 @@ See examples
 
 ## Future
 
-- found that the interface is like AM232X library.need to test first.
-- get hardware and test test test ...
-- update unit test
 - documentation
-- clean up code
+- test
+- update unit test ?
 - add examples
-- add AM2320 derived class ?
-- optimize
+- remove the **readDelay()** functions and code as sensor cannot handle shorter units.
+- optimize performance
+  - add function to tune the 1500 micros to sample.
+  - document squeeze of 10 write(0);
+
+
 
 **wont**
 - add calls for meta information (no description yet)
   - 0x07 status register
   - 0x08-0x0B user register HIGH LOW HIGH2 LOW2
+  (use AM232x library for those)
 

@@ -1,13 +1,14 @@
 //
 //    FILE: AM2315.cpp
 //  AUTHOR: Rob.Tillaart@gmail.com
-// VERSION: 0.1.1
+// VERSION: 0.1.2
 // PURPOSE: AM2315 Temperature and Humidity sensor library for Arduino
 //     URL: https://github.com/RobTillaart/AM2315
 //
 //  HISTORY:
 //  0.1.0  2022-01-05  initial version
 //  0.1.1  2022-01-11  fix handshake.
+//  0.1.2  2022-01-13  fix wake-up in read() for ESP32.
 
 
 #include "AM2315.h"
@@ -171,27 +172,24 @@ int AM2315::_readSensor()
   yield();
 
   // WAKE UP the sensor
-  _wire->beginTransmission(AM2315_ADDRESS);
-  for (int i = 0; i < 10; i++) _wire->write(0);
-  int rv = _wire->endTransmission();
-  if (rv < 0) return rv;
+  if (! wakeUp() ) return AM2315_ERROR_CONNECT;
 
   // REQUEST DATA
   _wire->beginTransmission(AM2315_ADDRESS);
   _wire->write(0X03);
   _wire->write(0);
   _wire->write(4);
-  rv = _wire->endTransmission();
+  int rv = _wire->endTransmission();
   if (rv < 0) return rv;
 
-  delayMicroseconds(1500);
-  // GET DATA
+  // REQUEXT DATA
   const int length = 8;
   int bytes = _wire->requestFrom(AM2315_ADDRESS, length);
   if (bytes == 0)     return AM2315_ERROR_CONNECT;
   if (bytes < length) return AM2315_MISSING_BYTES;
 
-  uint8_t buffer[12];
+  // GET DATA
+  uint8_t buffer[8];
   for (int i = 0; i < bytes; i++)
   {
     buffer[i] = _wire->read();
@@ -202,15 +200,11 @@ int AM2315::_readSensor()
   _bits[3] = buffer[5];
 
   // TEST CHECKSUM
-  uint16_t crc0 = buffer[7] * 256 + buffer[6];
-  uint16_t crc1 = _crc16(buffer, bytes - 2);
-  // Serial.print("CRC: ");
-  // Serial.print(crc0 - crc1);
-  // Serial.print("\t");
-  // Serial.print(crc1);
-  // Serial.println();
-  if (crc0 != crc1) return AM2315_ERROR_CHECKSUM;
-
+  uint16_t crc = buffer[bytes - 1] * 256 + buffer[bytes - 2];
+  if (_crc16(buffer, bytes - 2) != crc)
+  {
+    return AM2315_ERROR_CHECKSUM;
+  }
   return AM2315_OK;
 }
 
