@@ -28,11 +28,14 @@
 //
 AM2315::AM2315(TwoWire *wire)
 {
-  _wire        = wire;
-  _temperature = 0;
-  _humidity    = 0;
-  _humOffset   = 0;
-  _tempOffset  = 0;
+  _wire          = wire;
+  _temperature   = 0;
+  _humidity      = 0;
+  _humOffset     = 0;
+  _tempOffset    = 0;
+  _lastRead      = 0;
+  _waitForRead   = false;
+  _suppressError = false;
 };
 
 
@@ -173,7 +176,7 @@ int AM2315::_read()
 //    AM2315_ERROR_CHECKSUM;
 int AM2315::_readSensor()
 {
-  // HANDLE PENDING IRQ
+  // HANDLE PENDING IRQ etc.
   yield();
 
   // WAKE UP the sensor

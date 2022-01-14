@@ -69,18 +69,18 @@ public:
 
   // adding offsets works well in normal range
   // might introduce under- or overflow at the ends of the sensor range
-  void     setHumOffset(float offset)    { _humOffset = offset; };
-  void     setTempOffset(float offset)   { _tempOffset = offset; };
-  float    getHumOffset()                { return _humOffset; };
-  float    getTempOffset()               { return _tempOffset; };
+  void     setHumOffset(float offset = 0)  { _humOffset = offset; };
+  void     setTempOffset(float offset = 0) { _tempOffset = offset; };
+  float    getHumOffset()             { return _humOffset; };
+  float    getTempOffset()            { return _tempOffset; };
 
-  bool     getWaitForReading()           { return _waitForRead; };
-  void     setWaitForReading(bool b )    { _waitForRead = b; };
+  bool     getWaitForReading()        { return _waitForRead; };
+  void     setWaitForReading(bool b ) { _waitForRead = b; };
 
 
   // suppress error values of -999 => check return value of read() instead
-  bool     getSuppressError()            { return _suppressError; };
-  void     setSuppressError(bool b)      { _suppressError = b; };
+  bool     getSuppressError()         { return _suppressError; };
+  void     setSuppressError(bool b)   { _suppressError = b; };
 
   bool     wakeUp() { return isConnected(); };
 
