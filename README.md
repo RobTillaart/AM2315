@@ -183,7 +183,7 @@ Which method fit your application depends on your requirements and constraints.
 
 - update documentation
 - test more (other platforms)
-- keep in sync with AM2315 class
+- keep in sync with AM232X class
   - merge in a far future.
 - update unit test
 - add examples
