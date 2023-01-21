@@ -25,9 +25,9 @@ void setup()
   sensor.setHumOffset(1.2);
 
   Serial.print("TEMP OFFSET: \t");
-  Serial.println(sensor.getTempOffset);
+  Serial.println(sensor.getTempOffset());
   Serial.print(" HUM OFFSET: \t");
-  Serial.println(sensor.getHumOffset);
+  Serial.println(sensor.getHumOffset());
   Serial.println();
 
   delay(2000);
