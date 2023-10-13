@@ -95,9 +95,7 @@ If performance is mandatory do not go beyond 170 KHz.
 #### Constructor
 
 - **AM2315(TwoWire \*wire = &Wire)** constructor, default using Wire (I2C bus), optionally set to Wire0 .. WireN.
-- **bool begin(uint8_t dataPin, uint8_t clockPin)** begin for ESP32 et al, to set I2C bus pins.
-Returns true if device address 0x5C is connected.
-- **bool begin()** initializer for non ESP32 e.g. AVR.
+- **bool begin()** initializer.
 Returns true if device address 0x5C is connected.
 - **bool isConnected(uint16_t timeout = 3000)** returns true if the device address 0x5C is found on I2C bus.
 As the device can be in sleep modus it will retry for the defined timeout (in micros) with a minimum of 1 try. 
@@ -202,8 +200,7 @@ Which method fit your application depends on your requirements and constraints.
 
 - keep in sync with AM232X class
   - merge in a far future.
-- update unit test
-- add examples
+
 
 #### Could
 

@@ -77,7 +77,7 @@ unittest(test_constructor)
 
 unittest(test_offset)
 {
-  AM2315 sensor(&Wire);
+  AM2315 sensor;  //  default Wire
 
   assertEqualFloat(0, sensor.getTempOffset(), 0.001);
   assertEqualFloat(0, sensor.getHumOffset(), 0.001);
