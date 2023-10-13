@@ -16,7 +16,7 @@ Arduino library for an AM2315 I2C temperature and humidity sensor.
 
 ## Description
 
-The AM2315 is a sensor similar to the DHT12 with an I2C interface. 
+The AM2315 is a sensor similar to the DHT12 with an I2C interface.
 
 Although in theory this could enable multiple sensors on one bus
 the AM2315 has a fixed address **0x5C** so one need to implement a 
@@ -64,7 +64,7 @@ The C-version has a fixed address of **0x38** so easy to detect.
 The datasheet states the AM2315 should be used on 100 KHz I2C only. 
 When overclocking I got good readings up to 190 KHz in a test with 
 - Arduino UNO
-- very short wires (< 1 meter)
+- very short wires ( < 1 meter)
 - not using pull ups.
 - version 0.1.1 of this library
 
@@ -83,7 +83,6 @@ When overclocking I got good readings up to 190 KHz in a test with
 
 If robustness is mandatory stick to the default of 100 KHz.
 If performance is mandatory do not go beyond 170 KHz.
-
 
 
 ## Interface

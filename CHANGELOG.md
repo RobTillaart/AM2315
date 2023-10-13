@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.0] - 2023-10-13
+- simplified **begin()** no more Wire pin setting.
+- add **AM2315_Wire1.ino** example
+- update readme.md
+- minor edits
+
+----
+
 ## [0.1.7] - 2023-01-21
 - update GitHub actions
 - update license 2023
@@ -13,7 +21,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - minor edits comments
 - add offset example 
 - minor edit README.md
-
 
 ## [0.1.6] - 2022-10-27
 - Add RP2040 support to build-CI.
