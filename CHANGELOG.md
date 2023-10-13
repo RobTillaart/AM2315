@@ -8,8 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.2.0] - 2023-10-13
 - simplified **begin()** no more Wire pin setting.
+- update examples.
 - add **AM2315_Wire1.ino** example
 - update readme.md
+- update unit test
 - minor edits
 
 ----
