@@ -2,8 +2,11 @@
 [![Arduino CI](https://github.com/RobTillaart/AM2315/workflows/Arduino%20CI/badge.svg)](https://github.com/marketplace/actions/arduino_ci)
 [![Arduino-lint](https://github.com/RobTillaart/AM2315/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/RobTillaart/AM2315/actions/workflows/arduino-lint.yml)
 [![JSON check](https://github.com/RobTillaart/AM2315/actions/workflows/jsoncheck.yml/badge.svg)](https://github.com/RobTillaart/AM2315/actions/workflows/jsoncheck.yml)
+[![GitHub issues](https://img.shields.io/github/issues/RobTillaart/AM2315.svg)](https://github.com/RobTillaart/AM2315/issues)
+
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/RobTillaart/AM2315/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/RobTillaart/AM2315.svg?maxAge=3600)](https://github.com/RobTillaart/AM2315/releases)
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/robtillaart/library/AM2315.svg)](https://registry.platformio.org/libraries/robtillaart/AM2315)
 
 
 # AM2315
@@ -207,10 +210,19 @@ Which method fit your application depends on your requirements and constraints.
 
 - move code from .h to .cpp
 
-#### Won't
+#### Wont
 
 - add calls for meta information (no description yet)
   - 0x07 status register
   - 0x08-0x0B user register HIGH LOW HIGH2 LOW2
   (use AM232x library to access those)
+
+
+## Support
+
+If you appreciate my libraries, you can support the development and maintenance.
+Improve the quality of the libraries by providing issues and Pull Requests, or
+donate through PayPal or GitHub sponsors.
+
+Thank you,
 
