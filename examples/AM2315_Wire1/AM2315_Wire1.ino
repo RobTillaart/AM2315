@@ -1,14 +1,14 @@
 //
-//    FILE: AM2315_performance.ino
+//    FILE: AM2315_Wire1.ino
 //  AUTHOR: Rob Tillaart
 // PURPOSE: Demo for AM2315 I2C humidity & temperature sensor
-//
+//          Wire1 on ESP32 (et al)
 
 
 #include "AM2315.h"
 #include "Wire.h"
 
-AM2315 sensor;
+AM2315 sensor(&Wire1);
 
 
 void setup()
@@ -78,4 +78,3 @@ void loop()
 
 
 //  -- END OF FILE --
-
